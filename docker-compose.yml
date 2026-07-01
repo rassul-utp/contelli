@@ -1,0 +1,52 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: contelli_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: contelli
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d contelli"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web_api:
+    build:
+      context: .
+      dockerfile: docker/app.Dockerfile
+    container_name: contelli_api
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "python -c \"import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/api/v1/health').status==200 else 1)\"",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  tg_bot:
+    build:
+      context: .
+      dockerfile: docker/bot.Dockerfile
+    container_name: contelli_bot
+    env_file:
+      - .env
+    depends_on:
+      web_api:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
