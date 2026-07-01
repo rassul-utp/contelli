@@ -584,6 +584,5 @@ Decision-support tool only. Virality scores are heuristic estimates and AI analy
 
 
 ## License
-
-[MIT](LICENSE) © Rasul Utepbergenov#   c o n t e l l i  
+[MIT](LICENSE) © Rasul Utepbergenov#   c o n t e l l i 
  
