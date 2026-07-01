@@ -1,10 +1,10 @@
 # ConTelli
 
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![CI](https://github.com/rassul-utp/contelli/actions/workflows/ci.yml/badge.svg)](https://github.com/rassul-utp/contelli/actions/workflows/ci.yml)
-[![Lint: Ruff](https://img.shields.io/badge/lint-ruff-000000.svg)](https://github.com/astral-sh/ruff)
-[![Typing: mypy](https://img.shields.io/badge/typing-mypy-2a6db2.svg)](https://mypy-lang.org/)
+[Python 3.10+](https://www.python.org/downloads/)
+[License: MIT](LICENSE)
+[CI](https://github.com/rassul-utp/contelli/actions/workflows/ci.yml)
+[Lint: Ruff](https://github.com/astral-sh/ruff)
+[Typing: mypy](https://mypy-lang.org/)
 
 **AI content intelligence & trend auditor** — a Telegram bot backed by an async FastAPI service that scrapes content from **YouTube / Telegram / the web**, runs **Google Gemini** sentiment, entity, and engagement-trigger analysis, computes a **virality score**, and returns a chart plus an emoji report in seconds.
 
@@ -13,6 +13,8 @@ Built with **Python 3.10+ · FastAPI · aiogram 3 · Google Gemini · SQLAlchemy
 > Layered async architecture: the bot talks only to the API over HTTP; the API orchestrates scraping, AI, ML, and persistence in parallel.
 
 ---
+
+
 
 ## Table of contents
 
@@ -39,18 +41,24 @@ Built with **Python 3.10+ · FastAPI · aiogram 3 · Google Gemini · SQLAlchemy
 
 ---
 
+
+
 ## Overview
 
-| | |
-|---|---|
-| **Domain** | Content analytics · social media intelligence · AI integration |
-| **Stack** | Python · FastAPI · aiogram 3 · Google Gemini · SQLAlchemy 2 (async) · PostgreSQL · Pandas · Matplotlib · Seaborn |
-| **Platform** | Cross-platform (local) · Docker Compose (API + bot + PostgreSQL) |
-| **Output** | Telegram chart + emoji report; REST `POST /api/v1/audit` JSON |
+
+|              |                                                                                                                  |
+| ------------ | ---------------------------------------------------------------------------------------------------------------- |
+| **Domain**   | Content analytics · social media intelligence · AI integration                                                   |
+| **Stack**    | Python · FastAPI · aiogram 3 · Google Gemini · SQLAlchemy 2 (async) · PostgreSQL · Pandas · Matplotlib · Seaborn |
+| **Platform** | Cross-platform (local) · Docker Compose (API + bot + PostgreSQL)                                                 |
+| **Output**   | Telegram chart + emoji report; REST `POST /api/v1/audit` JSON                                                    |
+
 
 **For hiring managers:** end-to-end delivery — content scraping → Gemini AI analysis → heuristic ML virality scoring → async `asyncio.gather` orchestration → PostgreSQL persistence → Telegram UX with generated charts → Docker Compose → pytest suite with ruff + mypy in CI.
 
 ---
+
+
 
 ## Features
 
@@ -66,6 +74,8 @@ Built with **Python 3.10+ · FastAPI · aiogram 3 · Google Gemini · SQLAlchemy
 - Containerized — three services (`web_api`, `tg_bot`, `db`) with healthchecks in Docker Compose
 
 ---
+
+
 
 ## Architecture
 
@@ -100,15 +110,19 @@ flowchart LR
     AU --> SC --> AC --> CH --> H
 ```
 
+
+
 **Layer responsibilities**
 
-| Layer | Responsibility |
-|-------|----------------|
-| `config/` | Environment-driven settings + emoji logging |
-| `database/` | SQLAlchemy 2.0 async models and sessions |
+
+| Layer       | Responsibility                                               |
+| ----------- | ------------------------------------------------------------ |
+| `config/`   | Environment-driven settings + emoji logging                  |
+| `database/` | SQLAlchemy 2.0 async models and sessions                     |
 | `services/` | Scraping, Gemini AI, ML scoring (no FastAPI/aiogram imports) |
-| `api/` | HTTP contracts, validation, audit orchestration |
-| `bot/` | Telegram UX, visualization, API client |
+| `api/`      | HTTP contracts, validation, audit orchestration              |
+| `bot/`      | Telegram UX, visualization, API client                       |
+
 
 **Data flow (audit request)**
 
@@ -143,9 +157,15 @@ sequenceDiagram
     B->>U: 📊 photo + emoji report
 ```
 
+
+
 ---
 
+
+
 ## Quick start
+
+
 
 ### Option A — Docker Compose (recommended)
 
@@ -164,6 +184,8 @@ For Docker, set the container hostnames in `.env`:
 DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/contelli
 API_BASE_URL=http://web_api:8000
 ```
+
+
 
 ### Option B — Run from source
 
@@ -192,27 +214,35 @@ python main_bot.py    # starts Telegram polling
 
 ---
 
+
+
 ## Using the Telegram bot
 
 1. Open your ConTelli bot in Telegram and send `/start`.
 2. Send **plain text** (a post idea, caption) or a **URL** (YouTube, `t.me/...`, or any web page).
 3. Receive a **bar chart** + a **text report** with emoji indicators.
 
-| Command | Description |
-|---------|-------------|
+
+| Command  | Description                     |
+| -------- | ------------------------------- |
 | `/start` | Welcome message and quick guide |
-| `/help` | Usage and metric explanation |
+| `/help`  | Usage and metric explanation    |
+
 
 **Reading the report**
 
-| Field | Meaning |
-|-------|---------|
-| 🎯 **Viral Score** | 0.0–1.0 predicted engagement potential (0–0.3 low · 0.3–0.6 moderate · 0.6–1.0 high) |
-| 📈 **Sentiment** | `positive`, `negative`, `neutral`, or `mixed` |
-| 🤖 **Entities** | Key topics, brands, or names found in the content |
-| 🔥 **Engagement Triggers** | Hooks that may drive clicks, shares, or comments |
+
+| Field                      | Meaning                                                                              |
+| -------------------------- | ------------------------------------------------------------------------------------ |
+| 🎯 **Viral Score**         | 0.0–1.0 predicted engagement potential (0–0.3 low · 0.3–0.6 moderate · 0.6–1.0 high) |
+| 📈 **Sentiment**           | `positive`, `negative`, `neutral`, or `mixed`                                        |
+| 🤖 **Entities**            | Key topics, brands, or names found in the content                                    |
+| 🔥 **Engagement Triggers** | Hooks that may drive clicks, shares, or comments                                     |
+
 
 ---
+
+
 
 ## Screenshots
 
@@ -222,48 +252,54 @@ End-to-end demo: send a link, receive a chart + AI report with entities and enga
 
 `/start` shows the welcome guide; send any YouTube / Telegram / web URL (or plain text).
 
-![Start and input](docs/screenshots/01-start-and-input.png)
+Start and input
 
 ### 2. Audit report with chart
 
 The bot returns a metrics bar chart plus a report: viral score, sentiment, source, and content preview.
 
-![Audit report](docs/screenshots/02-audit-report.png)
+Audit report
 
 ### 3. Entities and engagement triggers
 
 Gemini lists key topics/brands/names and the hooks that may drive engagement.
 
-![Entities and triggers](docs/screenshots/03-entities-triggers.png)
+Entities and triggers
 
 ### 4. Send another link
 
 Any new content starts a fresh analysis.
 
-![URL input](docs/screenshots/04-url-input.png)
+URL input
 
 ### 5. Second audit report
 
 Sentiment can differ per content (here `mixed` for an ad-heavy video).
 
-![Audit report 2](docs/screenshots/05-audit-report.png)
+Audit report 2
 
 ### 6. Entities and triggers for the second post
 
-![Entities and triggers 2](docs/screenshots/06-entities-triggers.png)
+Entities and triggers 2
 
 ---
 
+
+
 ## How it works
+
+
 
 ### Scraping (`services/scraper.py`)
 
-| Source | Method |
-|--------|--------|
-| YouTube | Extract video id → YouTube Data API v3 `videos.list(snippet)` (title + description) |
-| Telegram | Fetch public page → parse `og:description` meta |
-| Web | Fetch page → parse `<title>` |
-| Text | Used as-is |
+
+| Source   | Method                                                                              |
+| -------- | ----------------------------------------------------------------------------------- |
+| YouTube  | Extract video id → YouTube Data API v3 `videos.list(snippet)` (title + description) |
+| Telegram | Fetch public page → parse `og:description` meta                                     |
+| Web      | Fetch page → parse `<title>`                                                        |
+| Text     | Used as-is                                                                          |
+
 
 If a key is missing or a request fails, the scraper returns a safe mock/fallback payload so the pipeline never crashes.
 
@@ -281,12 +317,16 @@ A custom `EmojiFormatter` prefixes log lines with context emojis (🚀 startup, 
 
 ---
 
+
+
 ## API reference
 
-| Method | Path | Description |
-|--------|------|-------------|
-| `GET` | `/api/v1/health` | Service health check |
-| `POST` | `/api/v1/audit` | Run a full content audit |
+
+| Method | Path             | Description              |
+| ------ | ---------------- | ------------------------ |
+| `GET`  | `/api/v1/health` | Service health check     |
+| `POST` | `/api/v1/audit`  | Run a full content audit |
+
 
 Interactive docs (Swagger UI): `http://localhost:8000/docs`.
 
@@ -330,32 +370,42 @@ POST /api/v1/audit
 
 ---
 
+
+
 ## Configuration
 
 All settings load from `.env` via `pydantic-settings` (see `.env.example`).
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `TELEGRAM_BOT_TOKEN` | yes | Bot token from @BotFather |
-| `TELEGRAM_API_ID` | yes | Telegram API id (my.telegram.org) |
-| `TELEGRAM_API_HASH` | yes | Telegram API hash |
-| `GEMINI_API_KEY` | yes | Google Gemini API key |
-| `GEMINI_MODEL` | no | Model name (default `gemini-2.5-flash`) |
-| `DATABASE_URL` | yes | Async PostgreSQL DSN (`postgresql+asyncpg://...`) |
-| `API_BASE_URL` | no | Bot → API base URL (default `http://localhost:8000`) |
-| `YOUTUBE_API_KEY` | no | Enables live YouTube metadata (otherwise mock) |
+
+| Variable             | Required | Description                                          |
+| -------------------- | -------- | ---------------------------------------------------- |
+| `TELEGRAM_BOT_TOKEN` | yes      | Bot token from @BotFather                            |
+| `TELEGRAM_API_ID`    | yes      | Telegram API id (my.telegram.org)                    |
+| `TELEGRAM_API_HASH`  | yes      | Telegram API hash                                    |
+| `GEMINI_API_KEY`     | yes      | Google Gemini API key                                |
+| `GEMINI_MODEL`       | no       | Model name (default `gemini-2.5-flash`)              |
+| `DATABASE_URL`       | yes      | Async PostgreSQL DSN (`postgresql+asyncpg://...`)    |
+| `API_BASE_URL`       | no       | Bot → API base URL (default `http://localhost:8000`) |
+| `YOUTUBE_API_KEY`    | no       | Enables live YouTube metadata (otherwise mock)       |
+
 
 ---
+
+
 
 ## Database schema
 
-| Table | Purpose |
-|-------|---------|
-| `posts` | Raw content, source, optional URL, timestamp |
-| `metrics` | Viral score + sentiment per post |
-| `ai_logs` | Raw Gemini JSON response per post |
+
+| Table     | Purpose                                      |
+| --------- | -------------------------------------------- |
+| `posts`   | Raw content, source, optional URL, timestamp |
+| `metrics` | Viral score + sentiment per post             |
+| `ai_logs` | Raw Gemini JSON response per post            |
+
 
 ---
+
+
 
 ## Repository layout
 
@@ -392,6 +442,8 @@ contelli/
 
 ---
 
+
+
 ## Testing & code quality
 
 Tooling is configured in `pyproject.toml` (`ruff`, `mypy` with the Pydantic plugin, `pytest`). Tests use an in-memory SQLite database and fake services — no real PostgreSQL, Gemini, or network needed.
@@ -404,19 +456,23 @@ mypy api bot config database services main_api.py main_bot.py   # type check
 pytest -q            # 32 tests
 ```
 
-| Suite | Coverage |
-|-------|----------|
-| `test_api.py` | Health + audit endpoints, persistence |
-| `test_scraper.py` | Source routing, YouTube id extraction |
-| `test_gemini_service.py` | JSON parsing, markdown fences, 429 fallback |
-| `test_ml_service.py` | Keyword density, score bounds |
-| `test_bot.py` | URL detection, report formatting, chart bytes |
-| `test_schemas.py` | Request validation, response models |
-| `test_config.py` | Settings, emoji formatter, logging idempotency |
+
+| Suite                    | Coverage                                       |
+| ------------------------ | ---------------------------------------------- |
+| `test_api.py`            | Health + audit endpoints, persistence          |
+| `test_scraper.py`        | Source routing, YouTube id extraction          |
+| `test_gemini_service.py` | JSON parsing, markdown fences, 429 fallback    |
+| `test_ml_service.py`     | Keyword density, score bounds                  |
+| `test_bot.py`            | URL detection, report formatting, chart bytes  |
+| `test_schemas.py`        | Request validation, response models            |
+| `test_config.py`         | Settings, emoji formatter, logging idempotency |
+
 
 > **SSL note (Windows / corporate networks):** if outbound HTTPS to Google/Telegram fails with `CERTIFICATE_VERIFY_FAILED`, the machine is intercepting TLS with a custom root CA. Both entry points call `truststore.inject_into_ssl()` at startup to trust the OS certificate store and resolve this automatically.
 
 ---
+
+
 
 ## CI
 
@@ -429,35 +485,45 @@ GitHub Actions (`.github/workflows/ci.yml`) runs on every push and pull request:
 
 ---
 
+
+
 ## Design decisions
 
-| Decision | Why |
-|----------|-----|
-| Bot → API over HTTP only | Loose coupling; API and bot are independently deployable |
-| `asyncio.gather` pipeline | Parallel DB + Gemini + ML — no blocking the event loop |
-| Gemini `response_schema` | Guarantees structured JSON, not just a prompt request |
-| Heuristic ML stub | Ships a working score with a clean TensorFlow swap-in point |
-| `pydantic-settings` | Type-safe config from `.env`, validated at startup, no hardcoded secrets |
-| `truststore` at entry points | Fixes TLS interception without weakening verification |
-| Emoji log formatter | Readable, scannable multi-service logs |
+
+| Decision                     | Why                                                                      |
+| ---------------------------- | ------------------------------------------------------------------------ |
+| Bot → API over HTTP only     | Loose coupling; API and bot are independently deployable                 |
+| `asyncio.gather` pipeline    | Parallel DB + Gemini + ML — no blocking the event loop                   |
+| Gemini `response_schema`     | Guarantees structured JSON, not just a prompt request                    |
+| Heuristic ML stub            | Ships a working score with a clean TensorFlow swap-in point              |
+| `pydantic-settings`          | Type-safe config from `.env`, validated at startup, no hardcoded secrets |
+| `truststore` at entry points | Fixes TLS interception without weakening verification                    |
+| Emoji log formatter          | Readable, scannable multi-service logs                                   |
+
 
 ---
+
+
 
 ## Issues encountered & fixes
 
 A short log of problems hit during development and how they were resolved.
 
-| # | Problem | Root cause | Fix |
-|---|---------|-----------|-----|
-| 1 | API crashed with `ConnectionRefusedError` on startup | PostgreSQL not installed, port 5432 closed | Installed PostgreSQL 17, created the `contelli` database |
-| 2 | `CERTIFICATE_VERIFY_FAILED` on all outbound HTTPS (Telegram, YouTube, Gemini) | Local TLS inspection uses a custom root CA absent from `certifi` | Added `truststore.inject_into_ssl()` at both entry points to trust the OS certificate store |
-| 3 | Scraper returned `[fallback]` and AI returned `api_limit_or_parse_fallback` | Downstream effect of the SSL failure above | Resolved together with issue #2 |
-| 4 | Gemini `404 NOT_FOUND: models/gemini-1.5-flash` | Model deprecated / unavailable on API `v1beta` | Switched to `gemini-2.5-flash` (`.env` + settings default) |
-| 5 | `[Errno 10048] bind on 0.0.0.0:8000` on restart | Previous API process still holding the port | Free the port before restart (kill the owning PID) |
-| 6 | `test_settings_default_gemini_model` failing | Test asserted the old model name | Updated the expected value to `gemini-2.5-flash` |
-| 7 | No lint / type / format gate | Missing tooling config | Added `pyproject.toml` (ruff + mypy + pytest) and CI |
+
+| #   | Problem                                                                       | Root cause                                                       | Fix                                                                                         |
+| --- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| 1   | API crashed with `ConnectionRefusedError` on startup                          | PostgreSQL not installed, port 5432 closed                       | Installed PostgreSQL 17, created the `contelli` database                                    |
+| 2   | `CERTIFICATE_VERIFY_FAILED` on all outbound HTTPS (Telegram, YouTube, Gemini) | Local TLS inspection uses a custom root CA absent from `certifi` | Added `truststore.inject_into_ssl()` at both entry points to trust the OS certificate store |
+| 3   | Scraper returned `[fallback]` and AI returned `api_limit_or_parse_fallback`   | Downstream effect of the SSL failure above                       | Resolved together with issue #2                                                             |
+| 4   | Gemini `404 NOT_FOUND: models/gemini-1.5-flash`                               | Model deprecated / unavailable on API `v1beta`                   | Switched to `gemini-2.5-flash` (`.env` + settings default)                                  |
+| 5   | `[Errno 10048] bind on 0.0.0.0:8000` on restart                               | Previous API process still holding the port                      | Free the port before restart (kill the owning PID)                                          |
+| 6   | `test_settings_default_gemini_model` failing                                  | Test asserted the old model name                                 | Updated the expected value to `gemini-2.5-flash`                                            |
+| 7   | No lint / type / format gate                                                  | Missing tooling config                                           | Added `pyproject.toml` (ruff + mypy + pytest) and CI                                        |
+
 
 ---
+
+
 
 ## Security notes
 
@@ -468,17 +534,23 @@ A short log of problems hit during development and how they were resolved.
 
 ---
 
+
+
 ## Contributing & docs
 
-| Document | Audience |
-|----------|----------|
-| [ARCHITECTURE.md](ARCHITECTURE.md) | Reviewers — layers, async flow, extension points |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | Contributors — setup, lint, PR checklist |
-| [CHANGELOG.md](CHANGELOG.md) | Release history |
 
-**Suggested code-review path:** `api/audit.py` → `services/*` → `bot/handlers.py` → `tests/`.
+| Document                           | Audience                                         |
+| ---------------------------------- | ------------------------------------------------ |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | Reviewers — layers, async flow, extension points |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Contributors — setup, lint, PR checklist         |
+| [CHANGELOG.md](CHANGELOG.md)       | Release history                                  |
+
+
+**Suggested code-review path:** `api/audit.py` → `services/`* → `bot/handlers.py` → `tests/`.
 
 ---
+
+
 
 ## Publishing checklist
 
@@ -497,9 +569,11 @@ git remote add origin https://github.com/rassul-utp/contelli.git
 git push -u origin main
 ```
 
-4. Optional repo topics: `python`, `fastapi`, `aiogram`, `telegram-bot`, `gemini`, `content-analytics`, `asyncio`
+1. Optional repo topics: `python`, `fastapi`, `aiogram`, `telegram-bot`, `gemini`, `content-analytics`, `asyncio`
 
 ---
+
+
 
 ## Disclaimer
 
@@ -507,6 +581,9 @@ Decision-support tool only. Virality scores are heuristic estimates and AI analy
 
 ---
 
+
+
 ## License
 
-[MIT](LICENSE) © Rasul Utepbergenov
+[MIT](LICENSE) © Rasul Utepbergenov#   c o n t e l l i  
+ 
